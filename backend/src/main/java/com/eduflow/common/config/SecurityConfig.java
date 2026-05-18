@@ -42,6 +42,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/courses/public/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
                                 "/api/certificates/verify/**"   // ← əlavə edildi
                         ).permitAll()
                         .anyRequest().authenticated()
