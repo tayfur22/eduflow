@@ -79,6 +79,7 @@ public class CourseController {
         return ResponseEntity.ok(courseService.unpublishCourse(id, userDetails.getUsername()));
     }
 
+    // ── YENİ: Kursu sil ──
     @DeleteMapping("/api/courses/{id}")
     @PreAuthorize("hasRole('TEACHER')")
     public ResponseEntity<Void> deleteCourse(
@@ -111,6 +112,4 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(courseService.addLesson(sectionId, request, userDetails.getUsername()));
     }
-
-
 }

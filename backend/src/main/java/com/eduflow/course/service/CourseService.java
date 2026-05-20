@@ -41,8 +41,6 @@ public class CourseService {
         return toCourseResponse(courseRepository.save(course));
     }
 
-
-
     @Transactional
     public CourseDtos.CourseResponse publishCourse(Long courseId, String teacherEmail) {
         Course course = getAndVerify(courseId, teacherEmail);
@@ -57,6 +55,7 @@ public class CourseService {
         return toCourseResponse(courseRepository.save(course));
     }
 
+    // ── YENİ: Kursu sil ──
     @Transactional
     public void deleteCourse(Long courseId, String teacherEmail) {
         Course course = getAndVerify(courseId, teacherEmail);
