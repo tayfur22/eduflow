@@ -79,6 +79,15 @@ public class CourseController {
         return ResponseEntity.ok(courseService.unpublishCourse(id, userDetails.getUsername()));
     }
 
+    @DeleteMapping("/api/courses/{id}")
+    @PreAuthorize("hasRole('TEACHER')")
+    public ResponseEntity<Void> deleteCourse(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        courseService.deleteCourse(id, userDetails.getUsername());
+        return ResponseEntity.noContent().build();
+    }
+
     // ── SECTION ──
 
     @PostMapping("/api/courses/{courseId}/sections")
@@ -102,4 +111,6 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(courseService.addLesson(sectionId, request, userDetails.getUsername()));
     }
+
+
 }

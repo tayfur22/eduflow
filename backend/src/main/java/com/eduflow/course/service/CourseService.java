@@ -41,6 +41,8 @@ public class CourseService {
         return toCourseResponse(courseRepository.save(course));
     }
 
+
+
     @Transactional
     public CourseDtos.CourseResponse publishCourse(Long courseId, String teacherEmail) {
         Course course = getAndVerify(courseId, teacherEmail);
@@ -53,6 +55,12 @@ public class CourseService {
         Course course = getAndVerify(courseId, teacherEmail);
         course.setPublished(false);
         return toCourseResponse(courseRepository.save(course));
+    }
+
+    @Transactional
+    public void deleteCourse(Long courseId, String teacherEmail) {
+        Course course = getAndVerify(courseId, teacherEmail);
+        courseRepository.delete(course);
     }
 
     public List<CourseDtos.CourseSummary> getMyCoursesAsTeacher(String teacherEmail) {
