@@ -59,8 +59,15 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000", "https://eduflow-frontend-seven.vercel.app/"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:3000",
+                // ── Düzəliş: sonundakı / silindi ──
+                "https://eduflow-frontend-seven.vercel.app",
+                // Əlavə: wildcard Vercel preview URL-ləri üçün
+                "https://eduflow-frontend-seven-git-main-tayfur22.vercel.app"
+        ));
+        // ── Düzəliş: PATCH əlavə edildi ──
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

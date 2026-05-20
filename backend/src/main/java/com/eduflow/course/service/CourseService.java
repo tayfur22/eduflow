@@ -77,6 +77,30 @@ public class CourseService {
                 .stream().map(this::toCourseSummary).collect(Collectors.toList());
     }
 
+    // ── YENİ: Dərsi ID ilə gətir (learn səhifəsi üçün) ──
+    public CourseDtos.LessonDetailResponse getLessonById(Long lessonId) {
+        Lesson lesson = lessonRepository.findById(lessonId)
+                .orElseThrow(() -> new RuntimeException("Dərs tapılmadı: " + lessonId));
+
+        Section section = lesson.getSection();
+        Course course = section.getCourse();
+
+        return CourseDtos.LessonDetailResponse.builder()
+                .id(lesson.getId())
+                .title(lesson.getTitle())
+                .lessonType(lesson.getLessonType())
+                .contentUrl(lesson.getContentUrl())
+                .textContent(lesson.getTextContent())
+                .durationMinutes(lesson.getDurationMinutes())
+                .orderIndex(lesson.getOrderIndex())
+                .freePreview(lesson.isFreePreview())
+                .sectionId(section.getId())
+                .sectionTitle(section.getTitle())
+                .courseId(course.getId())
+                .courseTitle(course.getTitle())
+                .build();
+    }
+
     @Transactional
     public CourseDtos.SectionResponse addSection(Long courseId, CourseDtos.CreateSectionRequest req, String teacherEmail) {
         Course course = getAndVerify(courseId, teacherEmail);
@@ -108,7 +132,7 @@ public class CourseService {
         return toLessonResponse(lessonRepository.save(lesson));
     }
 
-    // ── Private helpers ──
+    // ── Helpers ──
 
     private Course getAndVerify(Long courseId, String teacherEmail) {
         Course course = courseRepository.findById(courseId)

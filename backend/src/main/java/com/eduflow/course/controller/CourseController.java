@@ -19,7 +19,7 @@ public class CourseController {
 
     private final CourseService courseService;
 
-    // ── PUBLIC endpointlər (token lazım deyil) ──
+    // ── PUBLIC ──
 
     @GetMapping("/api/courses/public")
     public ResponseEntity<List<CourseDtos.CourseSummary>> getAllPublished() {
@@ -36,7 +36,16 @@ public class CourseController {
         return ResponseEntity.ok(courseService.searchCourses(keyword));
     }
 
-    // ── TEACHER endpointləri ──
+    // ── LESSON — learn səhifəsi üçün ──
+
+    @GetMapping("/api/lessons/{lessonId}")
+    @PreAuthorize("hasAnyRole('STUDENT', 'TEACHER')")
+    public ResponseEntity<CourseDtos.LessonDetailResponse> getLesson(
+            @PathVariable Long lessonId) {
+        return ResponseEntity.ok(courseService.getLessonById(lessonId));
+    }
+
+    // ── TEACHER ──
 
     @PostMapping("/api/courses")
     @PreAuthorize("hasRole('TEACHER')")
@@ -82,7 +91,7 @@ public class CourseController {
                 .body(courseService.addSection(courseId, request, userDetails.getUsername()));
     }
 
-    // ── LESSON ──
+    // ── LESSON CREATE ──
 
     @PostMapping("/api/sections/{sectionId}/lessons")
     @PreAuthorize("hasRole('TEACHER')")

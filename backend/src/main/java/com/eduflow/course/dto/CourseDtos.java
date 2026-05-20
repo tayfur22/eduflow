@@ -42,6 +42,7 @@ public class CourseDtos {
         private boolean freePreview = false;
     }
 
+    // Sadə lesson response (kurs siyahısı içində)
     @Data @Builder @NoArgsConstructor @AllArgsConstructor
     public static class LessonResponse {
         private Long id;
@@ -52,6 +53,25 @@ public class CourseDtos {
         private Integer durationMinutes;
         private Integer orderIndex;
         private boolean freePreview;
+    }
+
+    // ── YENİ: Tam lesson response — courseId və sectionId ilə ──
+    // learn/[lessonId] səhifəsi üçün lazımdır
+    @Data @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class LessonDetailResponse {
+        private Long id;
+        private String title;
+        private LessonType lessonType;
+        private String contentUrl;
+        private String textContent;
+        private Integer durationMinutes;
+        private Integer orderIndex;
+        private boolean freePreview;
+        // Sidebar üçün lazım olan məlumatlar
+        private Long sectionId;
+        private String sectionTitle;
+        private Long courseId;
+        private String courseTitle;
     }
 
     @Data @Builder @NoArgsConstructor @AllArgsConstructor
