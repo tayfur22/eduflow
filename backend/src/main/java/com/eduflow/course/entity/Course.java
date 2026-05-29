@@ -34,7 +34,10 @@ public class Course {
 
     private Double price;
 
-    @Column(nullable = false)
+    // ── FIX: nullable = false əvəzinə nullable = true ──
+    // DB-də sütun hələ yoxdur, nullable=false insert-i bloklayır.
+    // Migration SQL aşağıda verilmişdir.
+    @Column(nullable = true)
     @Builder.Default
     private String currency = "AZN";
 
@@ -55,8 +58,15 @@ public class Course {
     private LocalDateTime updatedAt;
 
     @PrePersist
-    protected void onCreate() { createdAt = LocalDateTime.now(); updatedAt = LocalDateTime.now(); }
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+        // Default dəyər boş qalmasın
+        if (currency == null) currency = "AZN";
+    }
 
     @PreUpdate
-    protected void onUpdate() { updatedAt = LocalDateTime.now(); }
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }
