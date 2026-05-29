@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -27,6 +28,7 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@EnableAsync   // ← EmailService @Async işləmək üçün
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -44,9 +46,10 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/courses/public/**",
+                                "/api/certificates/verify/**",
+                                "/api/payments/webhook",   // ← Stripe webhook
                                 "/swagger-ui/**",
-                                "/v3/api-docs/**",
-                                "/api/certificates/verify/**"
+                                "/v3/api-docs/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -61,12 +64,9 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "http://localhost:3000",
-                // ── Düzəliş: sonundakı / silindi ──
                 "https://eduflow-frontend-seven.vercel.app",
-                // Əlavə: wildcard Vercel preview URL-ləri üçün
                 "https://eduflow-frontend-seven-git-main-tayfur22.vercel.app"
         ));
-        // ── Düzəliş: PATCH əlavə edildi ──
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

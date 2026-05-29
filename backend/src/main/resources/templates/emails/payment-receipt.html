@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="az">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kurs Alındı — EduFlow</title>
+</head>
+<body style="margin:0;padding:0;background:#f5f4f0;font-family:'DM Sans',Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f4f0;padding:40px 20px;">
+  <tr><td align="center">
+    <table width="580" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+
+      <tr>
+        <td style="background:linear-gradient(135deg,#e8541a 0%,#f07040 100%);padding:32px 40px;text-align:center;">
+          <span style="font-size:26px;font-weight:800;color:white;">🎓 EduFlow</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:44px 40px 32px;">
+          <div style="text-align:center;margin-bottom:28px;">
+            <div style="display:inline-block;width:64px;height:64px;background:#f0fdf4;border-radius:50%;line-height:64px;font-size:28px;">✅</div>
+          </div>
+
+          <h1 style="margin:0 0 8px;font-size:22px;font-weight:700;color:#1a1814;text-align:center;">
+            Ödəniş uğurla tamamlandı!
+          </h1>
+          <p style="margin:0 0 32px;font-size:14px;color:#6b6660;text-align:center;">
+            Salam <strong th:text="${studentName}">İstifadəçi</strong>, aşağıda ödəniş qəbziniz var.
+          </p>
+
+          <!-- Receipt card -->
+          <div style="background:#f8f7f4;border-radius:12px;padding:24px;margin-bottom:28px;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:8px 0;font-size:13px;color:#9b9288;">Kurs</td>
+                <td style="padding:8px 0;font-size:14px;font-weight:600;color:#1a1814;text-align:right;" th:text="${courseTitle}">Kurs adı</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 0;font-size:13px;color:#9b9288;">Müəllim</td>
+                <td style="padding:8px 0;font-size:14px;color:#1a1814;text-align:right;" th:text="${teacherName}">Müəllim</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 0;font-size:13px;color:#9b9288;">Tarix</td>
+                <td style="padding:8px 0;font-size:14px;color:#1a1814;text-align:right;" th:text="${purchaseDate}">01.01.2024</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 0;font-size:13px;color:#9b9288;">Tranzaksiya ID</td>
+                <td style="padding:8px 0;font-size:13px;font-family:monospace;color:#6b6660;text-align:right;" th:text="${transactionId}">pi_xxx</td>
+              </tr>
+              <tr>
+                <td colspan="2" style="padding:12px 0 0;border-top:1px solid #ede9e0;"></td>
+              </tr>
+              <tr>
+                <td style="padding:4px 0;font-size:15px;font-weight:700;color:#1a1814;">Ümumi məbləğ</td>
+                <td style="padding:4px 0;font-size:20px;font-weight:800;color:#e8541a;text-align:right;">
+                  <span th:text="${amount}">0.00</span> <span th:text="${currency}">AZN</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- CTA -->
+          <div style="text-align:center;">
+            <a th:href="${courseUrl}" href="#"
+               style="display:inline-block;background:#e8541a;color:white;text-decoration:none;padding:14px 36px;border-radius:12px;font-size:15px;font-weight:700;">
+              Kursa başla →
+            </a>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="background:#f8f7f4;padding:24px 40px;border-top:1px solid #ede9e0;text-align:center;">
+          <p style="margin:0;font-size:12px;color:#9b9288;">
+            © 2024 EduFlow. Bütün hüquqlar qorunur.
+          </p>
+        </td>
+      </tr>
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>

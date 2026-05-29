@@ -11,7 +11,17 @@ public class PaymentDtos {
     public static class CreatePaymentRequest {
         private Long courseId;
         private Double amount;
-        private String currency; // "AZN", "USD"
+        private String currency;
+    }
+
+    // ── YENİ: Frontend Stripe.js üçün clientSecret lazımdır ──
+    @Data @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CreatePaymentIntentResponse {
+        private String clientSecret;       // Stripe.js-ə verilir
+        private String paymentIntentId;    // İzləmək üçün
+        private Double amount;
+        private String currency;
+        private String courseTitle;
     }
 
     @Data @Builder @NoArgsConstructor @AllArgsConstructor
@@ -22,6 +32,7 @@ public class PaymentDtos {
         private Double amount;
         private String currency;
         private PaymentStatus status;
+        private String stripePaymentIntentId;
         private LocalDateTime createdAt;
     }
 }

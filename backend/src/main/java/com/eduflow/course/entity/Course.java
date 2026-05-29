@@ -35,6 +35,10 @@ public class Course {
     private Double price;
 
     @Column(nullable = false)
+    @Builder.Default
+    private String currency = "AZN";
+
+    @Column(nullable = false)
     private boolean published = false;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -15,4 +15,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     Optional<Payment> findByStudentIdAndCourseIdAndStatus(
             Long studentId, Long courseId, PaymentStatus status);
+
+    // ── YENİ: webhook idempotency üçün ──
+    Optional<Payment> findByStripePaymentIntentId(String stripePaymentIntentId);
 }
